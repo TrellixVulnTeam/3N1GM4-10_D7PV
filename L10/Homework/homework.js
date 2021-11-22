@@ -1,30 +1,28 @@
 // Do not change any of the function names
 
-function counter(x) {
-  var currentValue = 0;
-    return function(val){
-    currentValue += val;
-    return currentValue;
-  }  
+function counter() {
+  var i = 0; 
+  return function(){ 
+    i++;
+    return i;
+  };
 }
-let c = counter()
-console.log(c(1))
-console.log(c(2))
-console.log(c(3))
-console.log(c(4))
-console.log(c(5))
   // Return a function that when invoked increments and returns a counter variable.
   // Example: const newCounter = counter();
   // newCounter(); // 1
   // newCounter(); // 2
 
+  const cache = {};
 
-function cacheFunction(cb) {
-  return function (number) {
-    number + number;
-    return cb(number);
-  }
-}
+  return function(number){
+   if (cache.hasOwnProperty(number)) {
+            return cache[number];
+        } else {
+            return cache[number] = cb(number);
+        }
+    };
+  
+
   // use closure to create a cache for the cb function
   // the function that you return should accept a single argument and invoke cb with that argument
   // when the function you return is invoked with an argument it should save that argument and its result
